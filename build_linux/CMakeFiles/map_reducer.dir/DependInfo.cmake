@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/daniil/cpp/Map_Reduce/main.cpp" "CMakeFiles/map_reducer.dir/main.cpp.o" "gcc" "CMakeFiles/map_reducer.dir/main.cpp.o.d"
+  "/home/daniil/cpp/MapReduce/main.cpp" "CMakeFiles/map_reducer.dir/main.cpp.o" "gcc" "CMakeFiles/map_reducer.dir/main.cpp.o.d"
   )
 
 # Targets to which this target links.

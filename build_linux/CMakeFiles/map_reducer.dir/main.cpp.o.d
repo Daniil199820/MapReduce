@@ -1,5 +1,5 @@
 CMakeFiles/map_reducer.dir/main.cpp.o: \
- /home/daniil/cpp/Map_Reduce/main.cpp /usr/include/stdc-predef.h \
+ /home/daniil/cpp/MapReduce/main.cpp /usr/include/stdc-predef.h \
  /usr/include/c++/11/filesystem /usr/include/c++/11/bits/fs_fwd.h \
  /usr/include/c++/11/system_error \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
@@ -169,7 +169,7 @@ CMakeFiles/map_reducer.dir/main.cpp.o: \
  /usr/include/c++/11/bits/refwrap.h \
  /usr/include/c++/11/ext/aligned_buffer.h \
  /usr/include/c++/11/bits/fs_dir.h /usr/include/c++/11/bits/fs_ops.h \
- /home/daniil/cpp/Map_Reduce/Map_reduce.h /usr/include/c++/11/iostream \
+ /home/daniil/cpp/MapReduce/Map_reduce.h /usr/include/c++/11/iostream \
  /usr/include/c++/11/vector /usr/include/c++/11/bits/stl_uninitialized.h \
  /usr/include/c++/11/bits/stl_vector.h \
  /usr/include/c++/11/bits/stl_bvector.h \

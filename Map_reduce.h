@@ -50,31 +50,56 @@ public:
        auto blocks = split_file(input, mappers_count);
         // set mapper
          for(int j = 0; j<mappers_count;++j){
-            vec_threads.emplace_back([&,j](){
+            mapper_threads.emplace_back([&,j](){
                 std::stringstream fl_name;
                 fl_name << "file_"<<std::this_thread::get_id();
                 std::ofstream f_out(fl_name.str());
                 std::stringstream temp_fl(read_block(input,blocks[j].from,blocks[j].to));
                 std::string line;
-                line = line + std::to_string(1);
                 std::vector<std::string> string_vector; 
                 while(std::getline(temp_fl,line)){
                     string_vector.push_back(std::move(line));   
                 }
                 std::sort(string_vector.begin(),string_vector.end());
                 for(auto & it: string_vector){
-                    mapper(line);
-                    f_out << line <<"\n";
+                    mapper(it);
+                    f_out << it <<"\n";
                 }
                 f_out.close();
             });
         }
 
-        for(auto& cur_thread:vec_threads){
+        for(auto& cur_thread:mapper_threads){
             if(cur_thread.joinable()){
                 cur_thread.join();
             }
-        } 
+        }
+
+        for(int j = 0; j<reducers_count;++j){
+            reducer_threads.emplace_back([&,j](){
+                std::stringstream fl_name;
+                fl_name << "file_"<<std::this_thread::get_id();
+                std::ofstream f_out(fl_name.str());
+                std::stringstream temp_fl(read_block(input,blocks[j].from,blocks[j].to));
+                std::string line;
+                std::vector<std::string> string_vector; 
+                while(std::getline(temp_fl,line)){
+                    string_vector.push_back(std::move(line));   
+                }
+                std::sort(string_vector.begin(),string_vector.end());
+                for(auto & it: string_vector){
+                    mapper(it);
+                    f_out << it <<"\n";
+                }
+                f_out.close();
+            });
+        }
+
+        for(auto& cur_thread:reducer_threads){
+            if(cur_thread.joinable()){
+                cur_thread.join();
+            }
+        }  
 
         // Создаём mappers_count потоков
         // В каждом потоке читаем свой блок данных
@@ -130,7 +155,8 @@ private:
         size_t to;
     };
 
-    std::vector<std::thread> vec_threads;
+    std::vector<std::thread> mapper_threads;
+    std::vector<std::thread> reducer_threads;
 
     std::vector<Block> split_file(const std::filesystem::path& file, int blocks_count) {
         

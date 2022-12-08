@@ -54,10 +54,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/daniil/cpp/Map_Reduce
+CMAKE_SOURCE_DIR = /home/daniil/cpp/MapReduce
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/daniil/cpp/Map_Reduce/build_linux
+CMAKE_BINARY_DIR = /home/daniil/cpp/MapReduce/build_linux
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -81,14 +81,14 @@ clean: CMakeFiles/map_reducer.dir/clean
 CMakeFiles/map_reducer.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/map_reducer.dir/build.make CMakeFiles/map_reducer.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/map_reducer.dir/build.make CMakeFiles/map_reducer.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/daniil/cpp/Map_Reduce/build_linux/CMakeFiles --progress-num=1,2 "Built target map_reducer"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/daniil/cpp/MapReduce/build_linux/CMakeFiles --progress-num=1,2 "Built target map_reducer"
 .PHONY : CMakeFiles/map_reducer.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/map_reducer.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/daniil/cpp/Map_Reduce/build_linux/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/daniil/cpp/MapReduce/build_linux/CMakeFiles 2
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/map_reducer.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/daniil/cpp/Map_Reduce/build_linux/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/daniil/cpp/MapReduce/build_linux/CMakeFiles 0
 .PHONY : CMakeFiles/map_reducer.dir/rule
 
 # Convenience name for target.

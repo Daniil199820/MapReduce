@@ -1,4 +1,4 @@
-# Install script for directory: /home/daniil/cpp/Map_Reduce
+# Install script for directory: /home/daniil/cpp/MapReduce
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/daniil/cpp/Map_Reduce/build_linux/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/daniil/cpp/MapReduce/build_linux/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

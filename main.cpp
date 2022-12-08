@@ -24,22 +24,6 @@ void print(){
     std::cout<<"awd\n";
 }
 
-struct S{
-    S(){
-        std::cout<<"Cntr\n";
-    }
-
-    S (const S& s) noexcept{
-        std::cout<< "Copy cntr\n";
-    }
-
-    S(S&& s) noexcept{
-        std::cout<< "Move cntr\n";
-    }
-
-
-};
-
 int main(int argc, char* argv[]) {
 
 
@@ -50,20 +34,7 @@ int main(int argc, char* argv[]) {
         line = line + " " +std::to_string(1);
     };
 
-    std::function<int(std::map<const int, int> k)> rf = [](std::map<const int, int> k){
-        std::cout<<k[0]<<"";
-        return 0;
-    };
 
-    std::vector<S> s_vec;
-
-    S s1;
-    S s2;
-    S s3;
-
-    s_vec.emplace_back(std::move(s1));
-    s_vec.emplace_back(std::move(s2));
-    s_vec.emplace_back(std::move(s3));
 
     mp.set_mapper(ff);
     //mp.set_mapper_2(rf);
