@@ -1,0 +1,3 @@
+/home/daniil/cpp/Map_Reduce/build_linux/CMakeFiles/map_reducer.dir
+/home/daniil/cpp/Map_Reduce/build_linux/CMakeFiles/edit_cache.dir
+/home/daniil/cpp/Map_Reduce/build_linux/CMakeFiles/rebuild_cache.dir
