@@ -109,6 +109,15 @@ public:
         // Каждый поток сохраняет результат в свой файл (представляем, что потоки выполняются на разных узлах)
 
 
+        auto blocks_reducer = split_file(input, reducers_count);
+
+        for(int i = 0; i< reducers_count;++i){
+            for(int j = blocks_reducer[i].from; j < blocks_reducer[i].to; ++j){
+                for()
+            }
+        }
+
+
         // Создаём reducers_count новых файлов
         // Из mappers_count файлов читаем данные (результат фазы map) и перекладываем в reducers_count (вход фазы reduce)
         // Перекладываем так, чтобы:
