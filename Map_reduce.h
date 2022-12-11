@@ -200,19 +200,25 @@ private:
         std::ofstream file_result(result_file);
         std::string str_min = {};
         int current_index = 0;
+        int first_size_line = 0;
         for(const auto& current_file: vector_files){
             std::ifstream temp_file(current_file);
             std::string line;
-            while(std::getline(temp_file,line)){
+            if(std::getline(temp_file,line)){
                 if(current_index == 0){
                     str_min = line;
+                    vector_indexes[0] += line.size();
+                    first_size_line = line.size();
                 }
                 else{
                     if (line < str_min){
                         str_min = line;
+                        vector_indexes[0] -= first_size_line;
+                        vector_indexes[current_index] += line.size();
                     }
                 }
             }
+            file_result << str_min;
             current_index++;
         }
     }
