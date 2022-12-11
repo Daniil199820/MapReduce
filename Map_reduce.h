@@ -52,8 +52,14 @@ public:
          for(int j = 0; j<mappers_count;++j){
             mapper_threads.emplace_back([&,j](){
                 std::stringstream fl_name;
-                fl_name << "file_"<<std::this_thread::get_id();
-                std::ofstream f_out(fl_name.str());
+                std::string directory = std::filesystem::current_path();
+                directory += "/map_phase";
+                std::filesystem::remove_all(directory);
+                std::filesystem::create_directory(directory);
+                fl_name <<"/map_phase/file_"<<std::this_thread::get_id();
+                std::string f_name_str = std::filesystem::current_path(); 
+                f_name_str =  f_name_str + fl_name.str();
+                std::ofstream f_out(f_name_str);
                 std::stringstream temp_fl(read_block(input,blocks[j].from,blocks[j].to));
                 std::string line;
                 std::vector<std::string> string_vector; 
@@ -75,10 +81,10 @@ public:
             }
         }
 
-        for(int j = 0; j<reducers_count;++j){
+     /*  for(int j = 0; j<reducers_count;++j){
             reducer_threads.emplace_back([&,j](){
                 std::stringstream fl_name;
-                fl_name << "file_"<<std::this_thread::get_id();
+                fl_name << "file"<<std::this_thread::get_id();
                 std::ofstream f_out(fl_name.str());
                 std::stringstream temp_fl(read_block(input,blocks[j].from,blocks[j].to));
                 std::string line;
@@ -100,6 +106,7 @@ public:
                 cur_thread.join();
             }
         }  
+        */ 
 
         // Создаём mappers_count потоков
         // В каждом потоке читаем свой блок данных
@@ -111,12 +118,36 @@ public:
 
         auto blocks_reducer = split_file(input, reducers_count);
 
+        std::vector<std::ofstream> vector_files_map;
+
+        std::string dir = std::filesystem::current_path();
+        std::string directory_reduce  = dir + "/reduce_phase";
+        std::filesystem::create_directory(directory_reduce);
+        dir += "/map_phase";
+
+        for(const auto& entry: std::filesystem::directory_iterator(dir)){
+            vector_files_map.emplace_back(entry.path());
+        }
+
+
+        
+        
+
         for(int i = 0; i< reducers_count;++i){
             for(int j = blocks_reducer[i].from; j < blocks_reducer[i].to; ++j){
-                for()
+                std::stringstream fl_flow;
+
+                fl_flow << directory_reduce << "file_" << i; 
+
+                std::ofstream file_out(fl_flow.str());
+                
+                //file_out << min();
+
             }
         }
 
+
+        
 
         // Создаём reducers_count новых файлов
         // Из mappers_count файлов читаем данные (результат фазы map) и перекладываем в reducers_count (вход фазы reduce)
@@ -163,6 +194,59 @@ private:
         size_t from;
         size_t to;
     };
+
+    
+    void merge_files_2(std::vector<std::filesystem::path>& vector_files,std::vector<int>& vector_indexes ,std::filesystem::path& result_file){
+        std::ofstream file_result(result_file);
+        std::string str_min = {};
+        int current_index = 0;
+        for(const auto& current_file: vector_files){
+            std::ifstream temp_file(current_file);
+            std::string line;
+            while(std::getline(temp_file,line)){
+                if(current_index == 0){
+                    str_min = line;
+                }
+                else{
+                    if (line < str_min){
+                        str_min = line;
+                    }
+                }
+            }
+            current_index++;
+        }
+    }
+
+
+    void merge_files(std::filesystem::path& left_file, std::filesystem::path& right_file, std::filesystem::path& result_file) {
+            std::ifstream file_l(left_file);
+            std::ifstream file_r(right_file);
+            std::ofstream file_result(result_file);
+            int l = 0;
+            int r = 0;
+            std::string line_l, line_r;
+            while(std::getline(file_l,line_l) && std::getline(file_r, line_r)){
+                if(line_l < line_r){
+                    file_result << line_l;
+                    l = line_l.size();
+                }
+                else{
+                    file_result << line_r;
+                    r = line_r.size();
+                }
+                file_l.seekg(l,std::ios::beg);
+                file_r.seekg(r,std::ios::beg);
+            }
+
+            while(std::getline(file_l,line_l)){
+                file_result << line_l;
+            }
+
+            while(std::getline(file_r,line_r)){
+                file_result << line_r;
+            }  
+        }
+
 
     std::vector<std::thread> mapper_threads;
     std::vector<std::thread> reducer_threads;
@@ -242,7 +326,7 @@ private:
         return 0;
     }
 
-    int mappers_count = 1 ;
+    int mappers_count = 3 ;
     int reducers_count = 3;
     //std::ifstream f_in;
    // template<typename ...Args>

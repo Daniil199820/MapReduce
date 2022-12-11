@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/daniil/cpp/MapReduce/build",
+  "command": "/usr/bin/g++   -g -std=gnu++17 -o CMakeFiles/map_reducer.dir/main.cpp.o -c /home/daniil/cpp/MapReduce/main.cpp",
+  "file": "/home/daniil/cpp/MapReduce/main.cpp"
+}
+]

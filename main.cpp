@@ -2,6 +2,7 @@
 #include "Map_reduce.h"
 #include <map>
 #include <vector>
+#include <math.h>
 /**
  * В этом файле находится клиентский код, который использует наш MapReduce фреймворк.
  * Этот код знает о том, какую задачу мы решаем.
@@ -20,9 +21,46 @@
  * 
  */
 
-void print(){
-    std::cout<<"awd\n";
+std::vector<int> merge(const std::vector<int>& left_arr,const std::vector<int>& right_arr){
+    int l = 0;
+    int r = 0;
+    std::vector<int> result_arr;
+    
+    while(l<left_arr.size() && r<right_arr.size()){
+        result_arr.push_back((left_arr[l]<right_arr[r])?left_arr[l++]:right_arr[r++]);
+    }
+
+    while(l<left_arr.size()){
+        result_arr.push_back(left_arr[l++]);
+    }
+
+    while(r<right_arr.size()){
+        result_arr.push_back(right_arr[r++]);
+    }
+
+    return result_arr;
+
 }
+
+std::vector<int> mergeSort(std::vector<int>& vec){
+    if(vec.size()==1){
+        return vec;
+    }
+    int med = std::ceil(vec.size()/2);
+    std::vector<int> left_arr;
+    std::vector<int> right_arr;
+    
+    for(int i=0; i< med;++i){
+        left_arr.push_back(vec[i]);
+    }
+
+    for(int i = med;i<vec.size();++i){
+        right_arr.push_back(vec[i]);
+    }
+
+    return merge(mergeSort(left_arr),mergeSort(right_arr));
+} 
+
 
 int main(int argc, char* argv[]) {
 
@@ -35,9 +73,9 @@ int main(int argc, char* argv[]) {
     };
 
 
+   
 
     mp.set_mapper(ff);
-    //mp.set_mapper_2(rf);
     mp.run(input);
     //std::vector<std::thread> vect;
 
